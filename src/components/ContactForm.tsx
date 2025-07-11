@@ -17,10 +17,10 @@ export function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const result = await submitContact(formData).unwrap();
+      await submitContact(formData).unwrap();
       toast({
         title: "Message Sent!",
-        description: result.message,
+        description: "We will get back to you soon!",
       });
       setFormData({ name: '', email: '', company: '', message: '' });
     } catch (error) {

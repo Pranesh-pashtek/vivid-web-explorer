@@ -9,12 +9,6 @@ export interface User {
   plan: 'free' | 'pro' | 'enterprise';
 }
 
-export interface ApiResponse<T> {
-  data: T;
-  message: string;
-  success: boolean;
-}
-
 export interface LoginRequest {
   email: string;
   password: string;
@@ -37,9 +31,8 @@ export interface ContactRequest {
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://jsonplaceholder.typicode.com/', // Sample API
+    baseUrl: 'https://jsonplaceholder.typicode.com/',
     prepareHeaders: (headers, { getState }) => {
-      // Add auth token if available
       const token = (getState() as any).auth.token;
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
@@ -49,65 +42,50 @@ export const api = createApi({
   }),
   tagTypes: ['User', 'Posts'],
   endpoints: (builder) => ({
-    // Authentication endpoints
-    login: builder.mutation<ApiResponse<{ user: User; token: string }>, LoginRequest>({
+    login: builder.mutation<{ user: User; token: string }, LoginRequest>({
       query: (credentials) => ({
-        url: 'users/1', // Mock endpoint
+        url: 'users/1',
         method: 'GET',
       }),
-      transformResponse: (response: any): ApiResponse<{ user: User; token: string }> => ({
-        data: {
-          user: {
-            id: response.id,
-            name: response.name,
-            email: response.email,
-            company: response.company?.name,
-            plan: 'pro'
-          },
-          token: 'mock-jwt-token-' + Date.now()
+      transformResponse: (response: any) => ({
+        user: {
+          id: response.id,
+          name: response.name,
+          email: response.email,
+          company: response.company?.name,
+          plan: 'pro' as const
         },
-        message: 'Login successful',
-        success: true
+        token: 'mock-jwt-token-' + Date.now()
       }),
     }),
     
-    signup: builder.mutation<ApiResponse<{ user: User; token: string }>, SignupRequest>({
+    signup: builder.mutation<{ user: User; token: string }, SignupRequest>({
       query: (userData) => ({
         url: 'users',
         method: 'POST',
         body: userData,
       }),
-      transformResponse: (response: any): ApiResponse<{ user: User; token: string }> => ({
-        data: {
-          user: {
-            id: response.id || Date.now(),
-            name: response.name,
-            email: response.email,
-            company: response.company,
-            plan: 'free'
-          },
-          token: 'mock-jwt-token-' + Date.now()
+      transformResponse: (response: any) => ({
+        user: {
+          id: response.id || Date.now(),
+          name: response.name,
+          email: response.email,
+          company: response.company,
+          plan: 'free' as const
         },
-        message: 'Account created successfully',
-        success: true
+        token: 'mock-jwt-token-' + Date.now()
       }),
     }),
 
-    // Contact form submission
-    submitContact: builder.mutation<ApiResponse<string>, ContactRequest>({
+    submitContact: builder.mutation<string, ContactRequest>({
       query: (contactData) => ({
         url: 'posts',
         method: 'POST',
         body: contactData,
       }),
-      transformResponse: (): ApiResponse<string> => ({
-        data: 'Message sent successfully',
-        message: 'We will get back to you soon!',
-        success: true
-      }),
+      transformResponse: () => 'Message sent successfully',
     }),
 
-    // Get user profile
     getUserProfile: builder.query<User, number>({
       query: (userId) => `users/${userId}`,
       transformResponse: (response: any): User => ({
@@ -120,7 +98,6 @@ export const api = createApi({
       providesTags: ['User'],
     }),
 
-    // Get blog posts for resources section
     getBlogPosts: builder.query<any[], void>({
       query: () => 'posts?_limit=6',
       providesTags: ['Posts'],

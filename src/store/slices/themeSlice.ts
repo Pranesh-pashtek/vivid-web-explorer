@@ -1,19 +1,21 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+type Theme = 'light' | 'dark' | 'system';
+
 interface ThemeState {
-  theme: 'light' | 'dark' | 'system';
+  theme: Theme;
 }
 
 const initialState: ThemeState = {
-  theme: (localStorage.getItem('saasflow-theme') as 'light' | 'dark' | 'system') || 'light',
+  theme: (localStorage.getItem('saasflow-theme') as Theme) || 'light',
 };
 
 const themeSlice = createSlice({
   name: 'theme',
   initialState,
   reducers: {
-    setTheme: (state, action: PayloadAction<'light' | 'dark' | 'system'>) => {
+    setTheme: (state, action: PayloadAction<Theme>) => {
       state.theme = action.payload;
       localStorage.setItem('saasflow-theme', action.payload);
     },
