@@ -5,13 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useSubmitContactMutation } from '@/store/api/apiSlice';
+import { useContactMutation } from '@/store/api/apiSlice';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Send } from 'lucide-react';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' });
-  const [submitContact, { isLoading }] = useSubmitContactMutation();
+  const [submitContact, { isLoading }] = useContactMutation();
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
