@@ -28,6 +28,16 @@ export interface ContactRequest {
   company?: string;
 }
 
+export interface LoginResponse {
+  user: User;
+  token: string;
+}
+
+export interface SignupResponse {
+  user: User;
+  token: string;
+}
+
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
@@ -42,36 +52,36 @@ export const api = createApi({
   }),
   tagTypes: ['User', 'Posts'],
   endpoints: (builder) => ({
-    login: builder.mutation<{ user: User; token: string }, LoginRequest>({
+    login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
         url: 'users/1',
         method: 'GET',
       }),
-      transformResponse: (response: any) => ({
+      transformResponse: (response: any): LoginResponse => ({
         user: {
           id: response.id,
           name: response.name,
           email: response.email,
           company: response.company?.name,
-          plan: 'pro' as const
+          plan: 'pro'
         },
         token: 'mock-jwt-token-' + Date.now()
       }),
     }),
     
-    signup: builder.mutation<{ user: User; token: string }, SignupRequest>({
+    signup: builder.mutation<SignupResponse, SignupRequest>({
       query: (userData) => ({
         url: 'users',
         method: 'POST',
         body: userData,
       }),
-      transformResponse: (response: any) => ({
+      transformResponse: (response: any): SignupResponse => ({
         user: {
           id: response.id || Date.now(),
           name: response.name,
           email: response.email,
           company: response.company,
-          plan: 'free' as const
+          plan: 'free'
         },
         token: 'mock-jwt-token-' + Date.now()
       }),
@@ -83,7 +93,7 @@ export const api = createApi({
         method: 'POST',
         body: contactData,
       }),
-      transformResponse: () => 'Message sent successfully',
+      transformResponse: (): string => 'Message sent successfully',
     }),
 
     getUserProfile: builder.query<User, number>({
