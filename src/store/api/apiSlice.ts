@@ -1,12 +1,13 @@
 
+// Simplified API slice without complex type inference
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface User {
   id: number;
   name: string;
   email: string;
+  plan: string;
   company?: string;
-  plan: 'free' | 'pro' | 'enterprise';
 }
 
 export interface LoginRequest {
@@ -25,100 +26,38 @@ export interface ContactRequest {
   name: string;
   email: string;
   message: string;
-  company?: string;
-}
-
-export interface LoginResponse {
-  user: User;
-  token: string;
-}
-
-export interface SignupResponse {
-  user: User;
-  token: string;
 }
 
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://jsonplaceholder.typicode.com/',
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as any).auth.token;
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
   }),
-  tagTypes: ['User', 'Posts'],
+  tagTypes: ['User'],
   endpoints: (builder) => ({
-    login: builder.mutation<LoginResponse, LoginRequest>({
-      query: (credentials) => ({
+    login: builder.mutation({
+      query: (credentials: LoginRequest) => ({
         url: 'users/1',
         method: 'GET',
       }),
-      transformResponse: (response: any): LoginResponse => ({
-        user: {
-          id: response.id,
-          name: response.name,
-          email: response.email,
-          company: response.company?.name,
-          plan: 'pro'
-        },
-        token: 'mock-jwt-token-' + Date.now()
-      }),
     }),
     
-    signup: builder.mutation<SignupResponse, SignupRequest>({
-      query: (userData) => ({
+    signup: builder.mutation({
+      query: (userData: SignupRequest) => ({
         url: 'users',
         method: 'POST',
         body: userData,
       }),
-      transformResponse: (response: any): SignupResponse => ({
-        user: {
-          id: response.id || Date.now(),
-          name: response.name,
-          email: response.email,
-          company: response.company,
-          plan: 'free'
-        },
-        token: 'mock-jwt-token-' + Date.now()
-      }),
     }),
 
-    submitContact: builder.mutation<string, ContactRequest>({
-      query: (contactData) => ({
+    contact: builder.mutation({
+      query: (contactData: ContactRequest) => ({
         url: 'posts',
         method: 'POST',
         body: contactData,
       }),
-      transformResponse: (): string => 'Message sent successfully',
-    }),
-
-    getUserProfile: builder.query<User, number>({
-      query: (userId) => `users/${userId}`,
-      transformResponse: (response: any): User => ({
-        id: response.id,
-        name: response.name,
-        email: response.email,
-        company: response.company?.name,
-        plan: 'pro'
-      }),
-      providesTags: ['User'],
-    }),
-
-    getBlogPosts: builder.query<any[], void>({
-      query: () => 'posts?_limit=6',
-      providesTags: ['Posts'],
     }),
   }),
 });
 
-export const {
-  useLoginMutation,
-  useSignupMutation,
-  useSubmitContactMutation,
-  useGetUserProfileQuery,
-  useGetBlogPostsQuery,
-} = api;
+export const { useLoginMutation, useSignupMutation, useContactMutation } = api;
