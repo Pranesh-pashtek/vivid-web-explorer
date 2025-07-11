@@ -1,8 +1,13 @@
 
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from './ThemeToggle';
+import { AuthModal } from './AuthModal';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { logout } from '@/store/slices/authSlice';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 const navigationItems = [
   { name: 'Home', href: '#home' },
@@ -18,6 +23,12 @@ const navigationItems = [
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b">
@@ -48,12 +59,32 @@ export function Header() {
           <div className="flex items-center space-x-4">
             <ThemeToggle />
             <div className="hidden md:flex items-center space-x-2">
-              <Button variant="ghost" size="sm">
-                Login
-              </Button>
-              <Button size="sm" className="bg-gradient-to-r from-primary to-purple-600 hover:opacity-90">
-                Sign Up
-              </Button>
+              {isAuthenticated && user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuItem>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>{user.name}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <>
+                  <AuthModal trigger={<Button variant="ghost" size="sm">Login</Button>} />
+                  <AuthModal trigger={<Button size="sm" className="bg-gradient-to-r from-primary to-purple-600 hover:opacity-90">Sign Up</Button>} />
+                </>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -83,12 +114,19 @@ export function Header() {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t">
-                <Button variant="ghost" size="sm">
-                  Login
-                </Button>
-                <Button size="sm" className="bg-gradient-to-r from-primary to-purple-600">
-                  Sign Up
-                </Button>
+                {isAuthenticated && user ? (
+                  <>
+                    <div className="text-sm font-medium">{user.name}</div>
+                    <Button variant="ghost" size="sm" onClick={handleLogout}>
+                      Log out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <AuthModal trigger={<Button variant="ghost" size="sm">Login</Button>} />
+                    <AuthModal trigger={<Button size="sm" className="bg-gradient-to-r from-primary to-purple-600">Sign Up</Button>} />
+                  </>
+                )}
               </div>
             </nav>
           </div>
