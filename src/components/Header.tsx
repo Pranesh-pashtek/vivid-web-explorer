@@ -81,8 +81,8 @@ export function Header() {
                 </DropdownMenu>
               ) : (
                 <>
-                  <AuthModal trigger={<Button variant="ghost" size="sm">Login</Button>} />
-                  <AuthModal trigger={<Button size="sm" className="bg-gradient-to-r from-primary to-purple-600 hover:opacity-90">Sign Up</Button>} />
+                  {/* <AuthModal trigger={<Button variant="ghost" size="sm">Login</Button>} />
+                  <AuthModal trigger={<Button size="sm" className="bg-gradient-to-r from-primary to-purple-600 hover:opacity-90">Sign Up</Button>} /> */}
                 </>
               )}
             </div>
