@@ -5,77 +5,101 @@ import { Card } from '@/components/ui/card';
 
 export function HeroSection() {
   return (
-    <section id="home" className="pt-24 pb-20 lg:pt-32 lg:pb-32 relative overflow-hidden bg-background">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-muted/20">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-to-r from-primary/5 to-purple-500/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="block text-foreground">Empower Your</span>
-            <span className="block">Business with </span>
-            <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+      <div className="container mx-auto px-4 py-32">
+        <div className="text-center mb-20">
+          {/* Badge */}
+          <div className="inline-flex items-center px-6 py-3 mb-8 bg-primary/10 backdrop-blur-sm rounded-full border border-primary/20">
+            <span className="text-sm font-medium text-primary">
+              ✨ Trusted by 50,000+ businesses worldwide
+            </span>
+          </div>
+
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.85] tracking-tight">
+            <span className="block text-foreground mb-2">Empower Your</span>
+            <span className="block text-foreground mb-2">Business with </span>
+            <span className="block bg-gradient-to-r from-primary via-purple-600 to-indigo-600 bg-clip-text text-transparent">
               Smarter Platform
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            An excellent way to get faster time-to-value from your business intelligence investment. 
-            Use it to build your next strategic business framework easily.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed">
+            Transform your workflow with our AI-powered platform. 
+            <span className="text-foreground font-medium"> Scale effortlessly</span>, 
+            <span className="text-foreground font-medium"> innovate fearlessly</span>, and 
+            <span className="text-foreground font-medium"> grow exponentially</span>.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 px-8 py-3 text-white rounded-lg font-semibold"
+              className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 px-12 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
             >
-              Get Started
+              Get Started Free
+              <ArrowRight className="ml-3 h-5 w-5" />
             </Button>
             <Button 
-              variant="ghost" 
+              variant="outline" 
               size="lg" 
-              className="px-8 py-3 rounded-lg font-semibold text-foreground hover:bg-muted"
+              className="px-12 py-4 text-lg font-semibold rounded-xl border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300"
             >
-              Live Preview
+              <Play className="mr-3 h-5 w-5" />
+              Watch Demo
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto mb-20">
             {[
-              { value: '99.9%', label: 'Uptime' },
-              { value: '+100ms', label: 'Response' },
-              { value: '15K+', label: 'Users' },
-              { value: 'SOC 2', label: 'Security' }
+              { value: '99.9%', label: 'Uptime', sublabel: 'Guaranteed' },
+              { value: '<100ms', label: 'Response', sublabel: 'Lightning Fast' },
+              { value: '50K+', label: 'Users', sublabel: 'Active Monthly' },
+              { value: 'SOC 2', label: 'Security', sublabel: 'Enterprise Grade' }
             ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div key={index} className="text-center group">
+                <div className="text-3xl font-black text-primary group-hover:scale-110 transition-transform duration-300">
+                  {stat.value}
+                </div>
+                <div className="text-sm font-semibold text-foreground">{stat.label}</div>
+                <div className="text-xs text-muted-foreground">{stat.sublabel}</div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Dashboard Preview */}
-        <div className="relative max-w-5xl mx-auto">
-          <Card className="p-8 glass-effect border border-border/50 rounded-3xl shadow-2xl">
-            <div className="aspect-[16/10] bg-gradient-to-br from-muted/50 to-muted rounded-2xl flex items-center justify-center relative overflow-hidden">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Play className="w-8 h-8 text-white" />
+        <div className="relative max-w-6xl mx-auto">
+          <div className="relative">
+            <Card className="p-12 bg-gradient-to-br from-background to-muted/30 backdrop-blur-sm border-2 border-primary/10 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500">
+              <div className="aspect-[16/9] bg-gradient-to-br from-primary/5 via-purple-500/5 to-indigo-500/5 rounded-2xl flex items-center justify-center relative overflow-hidden border border-primary/10">
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute top-4 left-4 w-2 h-2 bg-primary/20 rounded-full"></div>
+                  <div className="absolute top-8 left-12 w-2 h-2 bg-primary/20 rounded-full"></div>
+                  <div className="absolute top-12 left-8 w-2 h-2 bg-primary/20 rounded-full"></div>
+                  <div className="absolute top-16 left-20 w-2 h-2 bg-primary/20 rounded-full"></div>
                 </div>
-                <p className="text-lg font-semibold text-foreground mb-2">Interactive Dashboard Preview</p>
-                <p className="text-muted-foreground">See how our platform transforms your business</p>
+                
+                <div className="text-center z-10">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+                    <Play className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">Interactive Dashboard</h3>
+                  <p className="text-muted-foreground text-lg">Experience the future of business management</p>
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
           
           {/* Floating elements */}
-          <div className="absolute -top-4 -left-4 w-20 h-20 bg-primary/20 rounded-2xl rotate-12"></div>
-          <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-purple-500/20 rounded-full"></div>
+          <div className="absolute -top-8 -left-8 w-24 h-24 bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-3xl rotate-12 blur-sm"></div>
+          <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-gradient-to-br from-purple-600/20 to-indigo-600/20 rounded-full blur-sm"></div>
         </div>
       </div>
     </section>
