@@ -50,8 +50,9 @@ export function HeroSection() {
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-primary to-purple-600 hover:opacity-90 px-10 py-4 text-lg font-semibold rounded-xl shadow-2xl hover-lift glow-effect"
+              onClick={() => window.open('http://ec2-52-0-133-11.compute-1.amazonaws.com:3000/login', '_blank')}
             >
-              Start Free Journey
+              Start Journey
               <ArrowRight className="ml-3 h-5 w-5" />
             </Button>
             <Button 
