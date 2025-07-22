@@ -101,12 +101,12 @@ export function Footer() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-gradient-to-r from-primary to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">S</span>
+                  <span className="text-white font-bold text-sm">C</span>
                 </div>
-                <span className="text-xl font-bold text-gradient">SaaSFlow</span>
+                <span className="text-xl font-bold text-foreground">CAZPIAN</span>
               </div>
               <span className="text-muted-foreground text-sm">
-                © 2024 SaaSFlow. All rights reserved.
+                © 2024 CAZPIAN. All rights reserved.
               </span>
             </div>
 

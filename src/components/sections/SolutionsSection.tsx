@@ -1,99 +1,85 @@
 
-import { Building2, Heart, Brain, TrendingUp, Factory, GraduationCap } from 'lucide-react';
+import { Building2, Heart, ShoppingCart, Briefcase } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 const industries = [
   {
     icon: Building2,
-    title: 'Finance & Banking',
-    description: 'Secure, compliant solutions for financial institutions with real-time processing and advanced risk management.',
-    features: ['Regulatory compliance', 'Risk analytics', 'Real-time transactions', 'Audit trails'],
+    title: 'Architecture & Construction',
+    description: 'Streamline project management and collaboration for architects and construction teams with advanced planning tools.',
+    features: ['Project Planning', 'Resource Management', 'Team Collaboration', 'Progress Tracking'],
+    color: 'from-blue-500 to-blue-600',
   },
   {
     icon: Heart,
-    title: 'Healthcare',
-    description: 'HIPAA-compliant platform for healthcare providers with patient data protection and workflow optimization.',
-    features: ['HIPAA compliance', 'Patient portals', 'EHR integration', 'Telehealth support'],
+    title: 'Healthcare & Medical',
+    description: 'Secure patient data management and healthcare workflow optimization solutions for medical professionals.',
+    features: ['Patient Records', 'Appointment Scheduling', 'Medical Analytics', 'HIPAA Compliance'],
+    color: 'from-red-500 to-pink-500',
   },
   {
-    icon: Brain,
-    title: 'AI & Machine Learning',
-    description: 'Advanced infrastructure for AI companies with GPU clusters, model deployment, and MLOps automation.',
-    features: ['GPU acceleration', 'Model versioning', 'Auto-scaling', 'ML pipelines'],
+    icon: ShoppingCart,
+    title: 'E-commerce & Retail', 
+    description: 'Complete e-commerce solutions with inventory management, sales analytics, and customer engagement tools.',
+    features: ['Inventory Control', 'Sales Tracking', 'Customer Analytics', 'Payment Processing'],
+    color: 'from-purple-500 to-purple-600',
   },
   {
-    icon: TrendingUp,
-    title: 'E-commerce',
-    description: 'Complete e-commerce solutions with inventory management, payment processing, and customer analytics.',
-    features: ['Inventory sync', 'Payment gateways', 'Customer insights', 'Order automation'],
-  },
-  {
-    icon: Factory,
-    title: 'Manufacturing',
-    description: 'Industrial IoT solutions for manufacturing with supply chain optimization and predictive maintenance.',
-    features: ['IoT integration', 'Supply chain', 'Predictive analytics', 'Quality control'],
-  },
-  {
-    icon: GraduationCap,
-    title: 'Education',
-    description: 'Educational technology platforms with learning management, student analytics, and collaboration tools.',
-    features: ['LMS integration', 'Student analytics', 'Virtual classrooms', 'Assessment tools'],
+    icon: Briefcase,
+    title: 'Business & Finance',
+    description: 'Financial management tools and business intelligence solutions for growing companies and enterprises.',
+    features: ['Financial Reports', 'Budget Planning', 'Performance Metrics', 'Compliance Tools'],
+    color: 'from-green-500 to-emerald-500',
   },
 ];
 
 export function SolutionsSection() {
   return (
-    <section id="solutions" className="py-20">
+    <section id="solutions" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Industry-Specific{' '}
-            <span className="text-gradient">Solutions</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Solutions for Every Industry
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Tailored solutions designed for the unique challenges and requirements of your industry.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            No matter what business or industry you're in, our flexible platform 
+            can be customized to meet your specific needs and requirements.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {industries.map((industry, index) => (
-            <Card key={index} className="relative group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-background to-muted/30">
-              <CardHeader>
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <industry.icon className="w-8 h-8 text-primary" />
-                </div>
-                <CardTitle className="text-xl">{industry.title}</CardTitle>
-                <CardDescription className="text-base leading-relaxed">
-                  {industry.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6">
-                  {industry.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  Learn More
-                </Button>
-              </CardContent>
+            <Card key={index} className="p-8 border border-border/50 hover:shadow-lg transition-all duration-300 bg-background group">
+              <div className={`w-16 h-16 bg-gradient-to-r ${industry.color} rounded-2xl flex items-center justify-center mb-6`}>
+                <industry.icon className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-4">{industry.title}</h3>
+              <p className="text-muted-foreground mb-6 leading-relaxed">{industry.description}</p>
+              <ul className="space-y-3 mb-6">
+                {industry.features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
+                    <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></div>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Button variant="ghost" className="text-primary hover:text-primary hover:bg-primary/10 p-0 h-auto font-semibold">
+                Learn more →
+              </Button>
             </Card>
           ))}
         </div>
 
         {/* Call to action */}
         <div className="text-center mt-16">
-          <Card className="p-8 bg-gradient-to-r from-primary/5 to-purple-600/5 border-primary/20">
-            <h3 className="text-2xl font-bold mb-4">Don't see your industry?</h3>
+          <Card className="p-8 bg-muted/30 border-border/50">
+            <h3 className="text-2xl font-bold mb-4 text-foreground">Need a custom solution?</h3>
             <p className="text-muted-foreground mb-6">
-              Our flexible platform adapts to any business model. Let's discuss your specific needs.
+              Our team can build a tailored solution for your specific industry requirements.
             </p>
-            <Button size="lg" className="bg-gradient-to-r from-primary to-purple-600">
-              Contact Our Experts
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
+              Contact Sales Team
             </Button>
           </Card>
         </div>

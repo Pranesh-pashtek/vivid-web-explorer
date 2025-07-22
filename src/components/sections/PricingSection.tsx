@@ -6,59 +6,49 @@ import { Badge } from '@/components/ui/badge';
 
 const pricingPlans = [
   {
-    name: 'Free',
+    name: 'Starter',
     price: '0',
-    description: 'Perfect for trying out our platform',
+    period: 'month',
+    description: 'Get started for free',
     features: [
-      'Up to 3 team members',
-      '5 projects',
-      'Basic analytics',
-      'Community support',
+      'Up to 2 projects',
+      'Basic support',
       '1GB storage',
+      'Community access',
     ],
-    limitations: [
-      'Limited integrations',
-      'Basic templates only',
-    ],
-    cta: 'Get Started Free',
+    cta: 'Get started for free',
     popular: false,
   },
   {
-    name: 'Pro',
-    price: '29',
-    description: 'Best for growing teams and businesses',
+    name: 'Professional',
+    price: '39',
+    period: 'month',
+    description: 'Most popular choice for teams',
     features: [
-      'Up to 25 team members',
       'Unlimited projects',
-      'Advanced analytics',
       'Priority support',
       '100GB storage',
-      'All integrations',
-      'Custom templates',
+      'Advanced analytics',
+      'Team collaboration',
       'API access',
     ],
-    limitations: [],
-    cta: 'Start Pro Trial',
+    cta: 'Get started',
     popular: true,
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
-    description: 'For large organizations with specific needs',
+    name: 'Custom',
+    price: null,
+    period: null,
+    description: 'For enterprise customers',
     features: [
-      'Unlimited team members',
-      'Unlimited everything',
-      'Enterprise analytics',
-      'Dedicated support',
-      'Unlimited storage',
+      'Everything in Professional',
       'Custom integrations',
-      'White-label options',
-      'SLA guarantee',
+      'Dedicated support',
+      'SLA guarantees',
       'Advanced security',
       'Custom deployment',
     ],
-    limitations: [],
-    cta: 'Contact Sales',
+    cta: 'Contact us',
     popular: false,
   },
 ];
@@ -68,106 +58,81 @@ export function PricingSection() {
     <section id="pricing" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Simple, Transparent{' '}
-            <span className="text-gradient">Pricing</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Simple, Transparent Pricing
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Choose the perfect plan for your team. Start free and scale as you grow.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Choose the perfect plan for your needs. Start free and scale as you grow with our flexible pricing options.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           {pricingPlans.map((plan, index) => (
             <Card 
               key={index} 
-              className={`relative overflow-hidden ${
+              className={`relative p-8 ${
                 plan.popular 
-                  ? 'border-primary shadow-lg scale-105 bg-gradient-to-br from-background to-primary/5' 
-                  : 'hover:shadow-lg transition-shadow'
+                  ? 'border-primary shadow-xl bg-primary text-white' 
+                  : 'bg-background border-border/50 hover:shadow-lg transition-shadow'
               }`}
             >
-              {plan.popular && (
-                <div className="absolute top-0 left-0 right-0">
-                  <div className="bg-gradient-to-r from-primary to-purple-600 text-white text-center py-2 text-sm font-medium">
-                    <Star className="inline w-4 h-4 mr-1" />
-                    Most Popular
-                  </div>
-                </div>
-              )}
-              
-              <CardHeader className={plan.popular ? 'pt-12' : ''}>
-                <div className="text-center">
-                  <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
-                  <div className="mt-4 mb-2">
-                    <span className="text-4xl font-bold">
-                      {plan.price === 'Custom' ? '' : '$'}{plan.price}
+              <div className="text-center">
+                <h3 className={`text-xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-foreground'}`}>
+                  {plan.name}
+                </h3>
+                <div className="mb-4">
+                  {plan.price ? (
+                    <>
+                      <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-foreground'}`}>
+                        ${plan.price}
+                      </span>
+                      <span className={`text-sm ${plan.popular ? 'text-white/80' : 'text-muted-foreground'}`}>
+                        /{plan.period}
+                      </span>
+                    </>
+                  ) : (
+                    <span className={`text-2xl font-bold ${plan.popular ? 'text-white' : 'text-foreground'}`}>
+                      Let's talk
                     </span>
-                    {plan.price !== 'Custom' && (
-                      <span className="text-muted-foreground">/month</span>
-                    )}
-                  </div>
-                  <CardDescription>{plan.description}</CardDescription>
+                  )}
                 </div>
-              </CardHeader>
+                <p className={`mb-6 ${plan.popular ? 'text-white/90' : 'text-muted-foreground'}`}>
+                  {plan.description}
+                </p>
 
-              <CardContent className="space-y-6">
                 <Button 
-                  className={`w-full ${
+                  className={`w-full mb-8 ${
                     plan.popular 
-                      ? 'bg-gradient-to-r from-primary to-purple-600 hover:opacity-90' 
-                      : ''
+                      ? 'bg-white text-primary hover:bg-white/90' 
+                      : 'bg-primary text-white hover:bg-primary/90'
                   }`}
-                  variant={plan.popular ? 'default' : 'outline'}
                 >
                   {plan.cta}
-                  {plan.popular && <Zap className="ml-2 h-4 w-4" />}
                 </Button>
 
-                <div className="space-y-3">
-                  <h4 className="font-semibold">What's included:</h4>
-                  <ul className="space-y-2">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <Check className="w-5 h-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </CardContent>
+                <ul className="space-y-3 text-left">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center">
+                      <Check className={`w-5 h-5 mr-3 flex-shrink-0 ${
+                        plan.popular ? 'text-white' : 'text-primary'
+                      }`} />
+                      <span className={`text-sm ${
+                        plan.popular ? 'text-white/90' : 'text-foreground'
+                      }`}>
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Card>
           ))}
         </div>
 
-        {/* FAQ */}
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold mb-8">Frequently Asked Questions</h3>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
-            {[
-              {
-                q: "Can I change plans anytime?",
-                a: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately."
-              },
-              {
-                q: "Is there a free trial for Pro?",
-                a: "Yes, we offer a 14-day free trial for the Pro plan with full access to all features."
-              },
-              {
-                q: "What payment methods do you accept?",
-                a: "We accept all major credit cards, PayPal, and bank transfers for Enterprise plans."
-              },
-              {
-                q: "Do you offer refunds?",
-                a: "Yes, we offer a 30-day money-back guarantee for all paid plans."
-              }
-            ].map((faq, index) => (
-              <Card key={index} className="p-6">
-                <h4 className="font-semibold mb-2">{faq.q}</h4>
-                <p className="text-muted-foreground text-sm">{faq.a}</p>
-              </Card>
-            ))}
-          </div>
+        <div className="text-center mt-12">
+          <p className="text-muted-foreground text-sm">
+            All plans include a 30-day money-back guarantee. No hidden fees.
+          </p>
         </div>
       </div>
     </section>

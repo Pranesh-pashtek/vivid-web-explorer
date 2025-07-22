@@ -11,13 +11,10 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 const navigationItems = [
   { name: 'Home', href: '#home' },
-  { name: 'Product', href: '#product' },
+  { name: 'Features', href: '#features' },
   { name: 'Solutions', href: '#solutions' },
-  { name: 'Docs', href: '#docs' },
-  { name: 'Resources', href: '#resources' },
-  { name: 'Release Notes', href: '#releases' },
   { name: 'Pricing', href: '#pricing' },
-  { name: 'Company', href: '#company' },
+  { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -37,9 +34,9 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-r from-primary to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">S</span>
+              <span className="text-white font-bold text-sm">C</span>
             </div>
-            <span className="text-xl font-bold text-gradient">SaaSFlow</span>
+            <span className="text-xl font-bold text-foreground">CAZPIAN</span>
           </div>
 
           {/* Desktop Navigation */}

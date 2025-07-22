@@ -2,16 +2,11 @@
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/sections/HeroSection';
-import { ProductSection } from '@/components/sections/ProductSection';
+import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { SolutionsSection } from '@/components/sections/SolutionsSection';
 import { PricingSection } from '@/components/sections/PricingSection';
-import { 
-  DocsSection, 
-  ResourcesSection, 
-  ReleaseNotesSection, 
-  CompanySection, 
-  ContactSection 
-} from '@/components/sections/AdditionalSections';
+import { AboutSection } from '@/components/sections/AboutSection';
+import { ContactSection } from '@/components/sections/AdditionalSections';
 import { Footer } from '@/components/Footer';
 
 const Index = () => {
@@ -22,13 +17,10 @@ const Index = () => {
         
         <main>
           <HeroSection />
-          <ProductSection />
+          <FeaturesSection />
           <SolutionsSection />
-          <DocsSection />
-          <ResourcesSection />
-          <ReleaseNotesSection />
           <PricingSection />
-          <CompanySection />
+          <AboutSection />
           <ContactSection />
         </main>
         
