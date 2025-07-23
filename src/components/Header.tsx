@@ -8,6 +8,7 @@ import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { logout } from '@/store/slices/authSlice';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { CazpianLogo } from './CazpianLogo';
 
 const navigationItems = [
   { name: 'Home', href: '#home' },
@@ -32,11 +33,8 @@ export function Header() {
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-primary to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">C</span>
-            </div>
-            <span className="text-xl font-bold text-foreground">CAZPIAN</span>
+          <div className="flex items-center space-x-3">
+            <CazpianLogo className="w-10 h-10" />
           </div>
 
           {/* Desktop Navigation */}
